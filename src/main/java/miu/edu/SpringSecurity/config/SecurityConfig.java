@@ -1,6 +1,7 @@
 package miu.edu.SpringSecurity.config;
 
 import lombok.RequiredArgsConstructor;
+import miu.edu.SpringSecurity.user.Permission;
 import miu.edu.SpringSecurity.user.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req ->req.requestMatchers("/api/v1/auth/*").permitAll()
                                 .requestMatchers("/api/v1/management/**").hasAnyRole(Role.ADMIN.name(), Role.MEMBER.name())
+                                .requestMatchers("/api/v1/management/member-read-only").hasRole(Permission.MEMBER_READ.getPermission())
                                 .anyRequest()
                                 .authenticated()
                 )
